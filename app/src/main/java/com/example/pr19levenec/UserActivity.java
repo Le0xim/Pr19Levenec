@@ -45,17 +45,26 @@ public class UserActivity extends AppCompatActivity {
         if (extras != null) {
             userId = extras.getLong("id");
         }
-        // если 0, то добавление
         if (userId > 0) {
-            // получаем элемент по id из бд
-            userCursor = db.rawQuery("select * from " + DatabaseHelper.TABLE + " where " +
-                    DatabaseHelper.COLUMN_ID + "=?", new String[]{String.valueOf(userId)});
-            userCursor.moveToFirst();
-            nameBox.setText(userCursor.getString(1));
-            yearBox.setText(String.valueOf(userCursor.getInt(2)));
-            userCursor.close();
+            userCursor = db.rawQuery("select * from " + DatabaseHelper.TABLE + " where " + DatabaseHelper.COLUMN_ID + "=?", new String[]{String.valueOf(userId)});
+
+            if (userCursor.moveToFirst()) {
+                // Динамически получаем индексы столбцов по их именам из DatabaseHelper
+                int nameIdx = userCursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NAME); // Укажите ваши константы
+                int yearIdx = userCursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_YEAR);
+                int emailIdx = userCursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_EMAIL);
+                int phoneIdx = userCursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PHONE_NUMBER);
+                int cityIdx = userCursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CITY);
+
+
+                // Безопасно заполняем поля
+                nameBox.setText(userCursor.getString(nameIdx));
+                yearBox.setText(String.valueOf(userCursor.getInt(yearIdx)));
+                EmailBox.setText(userCursor.getString(emailIdx));
+                PhoneNumberBox.setText(userCursor.getString(phoneIdx));
+                CityBox.setText(userCursor.getString(cityIdx));
+            }
         } else {
-            // скрываем кнопку удаления
             delButton.setVisibility(View.GONE);
         }
     }

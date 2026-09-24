@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "userstore.db"; // название бд
+    private static final String DATABASE_NAME = "3userstore.db"; // название бд
     private static final int SCHEMA = 1; // версия базы данных
     static final String TABLE = "users"; // название таблицы в бд
     // названия столбцов
@@ -25,9 +25,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE users ("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_NAME + " TEXT, "
-                + COLUMN_YEAR + " INTEGER, " // Добавлена запятая
-                + COLUMN_EMAIL + " TEXT, "  // Добавлена запятая
-                + COLUMN_PHONE_NUMBER + " TEXT, " // Добавлен тип данных и запятая
+                + COLUMN_YEAR + " INTEGER, "
+                + COLUMN_EMAIL + " TEXT, "
+                + COLUMN_PHONE_NUMBER + " TEXT, "
                 + COLUMN_CITY + " TEXT)");
 
         // добавление начальных данных
